@@ -23,10 +23,10 @@ def start_message(message):
     if check_user:
         products = db.get_pr_name_id()
         bot.send_message(user_id, 'Добро пожаловать в мой магазин!',reply_markup=telebot.types.ReplyKeyboardRemove())
-        bot.send_message(user_id, 'Выберите пункт меню:',reply_markup=buttons.main_menu_buttons(products))
+        bot.send_message(user_id, 'Выберите пункт меню:', reply_markup=buttons.main_menu_buttons(products))
 
     else:
-        bot.send_message(user_id, 'Здравствуйте запишите ваше имя!')
+        bot.send_message(user_id, 'Здравствуйте запишите ваше имя!', reply_markup=telebot.types.ReplyKeyboardRemove())
         #Перевести на этап получения имени
         bot.register_next_step_handler(message, get_name)
 
@@ -135,7 +135,9 @@ def get_location(message, user_name, user_number):
                                            f"{message.location.latitude}")
         #Регистрируем пользователя
         db.register(user_id, user_name, user_number, user_location)
-        bot.send_message(user_id, 'Вы успешно зарегистрировались!')
+        products = db.get_pr_name_id()
+        bot.send_message(user_id, 'Вы успешно зарегистрировались!', reply_markup=telebot.types.ReplyKeyboardRemove())
+        bot.send_message(user_id, 'Выберите пункт меню:', reply_markup=buttons.main_menu_buttons(products))
     #Если не через кнопку
     else:
         bot.send_message(user_id, 'Отправьте сообщение через кнопку!')
