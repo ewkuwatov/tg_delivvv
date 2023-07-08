@@ -1,5 +1,3 @@
-#buttons
-
 from telebot import types
 
 #Кнопка для отправки номера
@@ -14,7 +12,7 @@ def num_button():
     kb.add(num)
     return kb
 
-#Конпка для отправки локации
+#Кнопка для отправки локации
 def loc_button():
     # Создаем пространство для кнопок
     kb = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -31,73 +29,70 @@ def remove():
 
 #Кнопки для вывода товаров
 def main_menu_buttons(products_from_db):
-    #Создаем пространство для конпок
-    kb = types.InlineKeyboardMarkup(row_width=3)
+    #Создаем пространство для кнопок
+    kb = types.InlineKeyboardMarkup(row_width=2)
 
     #Создаем несгораемую кнопку корзины
     cart = types.InlineKeyboardButton(text='Корзина', callback_data='cart')
-    #создаем кнопки с продуктами
+    #Создаем кнопки c продуктами
     all_products = [types.InlineKeyboardButton(text=f'{i[1]}',
-                    callback_data=i[0])
+                                               callback_data=i[0])
                     for i in products_from_db]
 
-    #Объеденяем кнопки с пространством
+    #Объединяем кнопки с пространством
     kb.row(cart)
     kb.add(*all_products)
 
     #Возвращаем пространство
     return kb
 
-
-# Кнопки для выбора количество
+#Кнопки выбора количества
 def choose_product_count(current_amount=1, plus_or_minus=''):
-    #создаем пространство
+    #Создаем пространство
     kb = types.InlineKeyboardMarkup(row_width=3)
 
-    #Создаем несгораемы кнопки
+    #Создаем несгораемые кнопки
     back = types.InlineKeyboardButton(text='Назад', callback_data='back')
     plus = types.InlineKeyboardButton(text='+', callback_data='increment')
     minus = types.InlineKeyboardButton(text='-', callback_data='decrement')
-    count = types.InlineKeyboardButton(text=str(current_amount), callback_data=str(current_amount))
-    add_to_card = types.InlineKeyboardButton(text='Добавить в корзину', callback_data='to_card')
+    count = types.InlineKeyboardButton(text=str(current_amount),
+                                       callback_data=str(current_amount))
+    add_to_cart = types.InlineKeyboardButton(text='Добавить в корзину',
+                                             callback_data='to_cart')
 
     #Отслеживание плюса и минуса
     if plus_or_minus == 'increment':
         new_amount = int(current_amount) + 1
 
-        count = types.InlineKeyboardButton(text=str(new_amount), callback_data=str(new_amount))
-
-    elif plus_or_minus == 'increment':
+        count = types.InlineKeyboardButton(text=str(new_amount),
+                                           callback_data=str(new_amount))
+    elif plus_or_minus == 'decrement':
         if int(current_amount) > 1:
             new_amount = int(current_amount) - 1
 
-            count = types.InlineKeyboardButton(text=str(new_amount), callback_data=str(new_amount))
+            count = types.InlineKeyboardButton(text=str(new_amount),
+                                               callback_data=str(new_amount))
 
-    # Объеденяем кнопки с пространством
+    #Объединяем кнопки с пространством
     kb.add(minus, count, plus)
-    kb.row(add_to_card)
+    kb.row(add_to_cart)
     kb.row(back)
 
-    # Возвращаем пространство
     return kb
 
-#
+#Кнопки корзины
 def cart_buttons():
+    #Создаем пространство
     kb = types.InlineKeyboardMarkup(row_width=1)
-
 
     #Создаем кнопки
     clear_cart = types.InlineKeyboardButton(text='Очистить корзину',
                                             callback_data='clear_cart')
-
     order = types.InlineKeyboardButton(text='Оформить заказ',
-                                            callback_data='order')
-
+                                       callback_data='order')
     back = types.InlineKeyboardButton(text='Назад',
-                                            callback_data='back')
-
-    # Объеденяем кнопки с пространством
+                                      callback_data='back')
+    #Объединяем кнопки с пространством
     kb.add(clear_cart, order, back)
-
     return kb
 
