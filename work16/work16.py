@@ -38,11 +38,11 @@ def get_name(message):
     #Перевести на этап получения номера
     bot.register_next_step_handler(message, get_number, user_name)
 
-#Админ-панель - ДЗ
-@bot.message_handler(commands=['admin'])
-def start_admin(message):
-    if user_id == 791555605:
-        pass
+# #Админ-панель - ДЗ
+# @bot.message_handler(commands=['admin'])
+# def start_admin(message):
+#     if user_id == 791555605:
+#         print('')
 
 #Этап получения номера
 def get_number(message, user_name):

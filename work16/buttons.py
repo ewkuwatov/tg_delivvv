@@ -95,4 +95,3 @@ def cart_buttons():
     #Объединяем кнопки с пространством
     kb.add(clear_cart, order, back)
     return kb
-

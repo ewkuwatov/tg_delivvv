@@ -109,7 +109,7 @@ def show_cart(user_id):
 
 def r():
     sql.execute('INSERT INTO products (pr_name, pr_amount, pr_price, pr_des)'
-                'VALUES ("ШАшлык", 200, 20000.0, "Вкусно!")')
+                'VALUES ("Шашлык", 200, 20000.0, "Вкусно!")')
     connection.commit()
 
-r( )
+r()
